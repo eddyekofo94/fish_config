@@ -56,7 +56,7 @@ set -q WORKON_HOME; or set -Ux WORKON_HOME $XDG_DATA_HOME/venvs
 set -q PYLINTHOME; or set -Ux PYLINTHOME $XDG_CACHE_HOME/pylint
 
 # Other vars
-set -q FISH_THEME; or set -U FISH_THEME catppuccin_mocha
+set -q FISH_THEME; or set -Ux FISH_THEME catppuccin_mocha
 
 # Applications vars
 set -q JAVA_HOME; or set -Ux JAVA_HOME "$SDKMAN_DIR/candidates/java/current"
@@ -68,3 +68,5 @@ set -q LS_COLORS; or set -Ux LS_COLORS "(vivid generate $HOME/.dotfiles/vivid/ca
 set -q BAT_CONFIG_PATH; or set -Ux BAT_CONFIG_PATH "$HOME/.dotfiles/bat/bat.conf"
 
 
+#https://github.com/gazorby/fifc
+set -q fifc_editor; or set -Ux fifc_editor $EDITOR

@@ -1,12 +1,11 @@
-function _fzf_find_cat -d "fzf find cat"
+function fe -d "fzf find edit"
     set -l file (
       fzf --query="$argv" --no-multi --select-1 --exit-0 \
           --preview 'bat --color=always --line-range :500 {}'
     )
 
     if test (count $file) -gt 0
-        cat $file
+        $EDITOR "$file"
     end
 end
 
-abbr fcat _fzf_find_cat

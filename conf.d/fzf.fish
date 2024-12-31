@@ -13,29 +13,33 @@ function _fzf_compgen_dir
     fd --type d --hidden --follow --exclude ".git" . "$1"
 end
 
-set -Ux FZF_COMMON_OPTIONS "--inline-info \
---height 96% --border --margin=1 --padding=1 \
---select-1 \
---ansi \
---multi \
---reverse \
---extended \
---bind=ctrl-space:toggle \
---bind=ctrl-a:select-all \
---bind=ctrl-d:deselect-all \
---bind=ctrl-t:toggle-all \
-'--bind=ctrl-o:execute-silent($EDITOR {})+abort' \
---bind=ctrl-i:ignore,ctrl-k:ignore \
---bind=ctrl-j:down,ctrl-k:up \
---bind=ctrl-u:preview-up,ctrl-d:preview-down \
---bind=esc:abort \
---bind=ctrl-c:abort \
---bind=?:toggle-preview \
---preview='($FZF_PREVIEW_COMMAND) 2> /dev/null' \
---cycle \
---margin=0,0 \
---padding=0,0 \
---prompt='∷ '"
+set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info \
+    --height 96% --border --margin=1 --padding=1 \
+    --select-1 \
+    --ansi \
+    --multi \
+    --reverse \
+    --extended \
+    --bind=ctrl-space:toggle \
+    --bind=ctrl-a:select-all \
+    --bind=ctrl-d:deselect-all \
+    --bind=ctrl-t:toggle-all \
+    '--bind=ctrl-o:execute-silent($EDITOR {})+abort' \
+    --bind=ctrl-i:ignore,ctrl-k:ignore \
+    --bind=ctrl-j:down,ctrl-k:up \
+    --bind=ctrl-u:preview-up,ctrl-d:preview-down \
+    --bind=esc:abort \
+    --bind=ctrl-c:abort \
+    --bind=?:toggle-preview \
+    --preview='($FZF_PREVIEW_COMMAND) 2> /dev/null' \
+    --cycle \
+    --margin=0,0 \
+    --padding=0,0 \
+    --prompt='∷ ' \
+    --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=border:#45475a \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 function _fzf_catppuccin
     set -Ux FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
@@ -48,16 +52,16 @@ end
 # CTRL-/ to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
 set -q FZF_CTRL_R_OPTS; or set -Ux FZF_CTRL_R_OPTS "--header='command history (Press CTRL-y to copy command into clipboard)' \
---inline-info \
---height=70% \
---select-1 \
---ansi \
---reverse \
---extended \
---preview 'echo {}' --preview-window down:3:wrap \
---bind 'ctrl-/:toggle-preview' \
---bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
---color header:italic"
+    --inline-info \
+    --height=70% \
+    --select-1 \
+    --ansi \
+    --reverse \
+    --extended \
+    --preview 'echo {}' --preview-window down:3:wrap \
+    --bind 'ctrl-/:toggle-preview' \
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+    --color header:italic"
 
 if command -q fd
     # FZF
@@ -93,12 +97,12 @@ end
 
 command -v bat >/dev/null && command -v eza >/dev/null && set -q FZF_DEFAULT_OPTS; or set -Ux FZF_DEFAULT_OPTS "$FZF_COMMON_OPTIONS"
 
-set -Ux FZF_PREVIEW_COMMAND '(_fzf_preview_command {})'
+set -q FZF_PREVIEW_COMMAND; or set -Ux FZF_PREVIEW_COMMAND '_fzf_preview_file {}'
 
-set -Ux FZF_CTRL_T_OPTS "--min-height 30 \
---height 85% \
---preview-window noborder --preview '(_fzf_preview_command {})'"
+set -Ux FZF_CTRL_T_OPTS "--min-height 25 \
+    --height 85% \
+    --preview-window noborder --preview '_fzf_preview_file {}'"
 
 set -q FZF_PREVIEW_LINES; or set -Ux FZF_PREVIEW_LINES -200
 
-_fzf_catppuccin
+#_fzf_catppuccin

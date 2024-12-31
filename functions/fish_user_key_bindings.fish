@@ -14,5 +14,8 @@ function fish_user_key_bindings
 
     fish_vi_key_bindings --no-erase insert
     bind -M insert -m default jj backward-char force-repaint
-    bind -M insert -m default \cx20 accept-autosuggestion
+    bind -M insert -m default \cy accept-autosuggestion
+
+    bind -M insert -m default ! bind_bang
+    bind -M insert -m default '$' bind_dollar
 end

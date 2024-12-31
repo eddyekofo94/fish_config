@@ -10,6 +10,9 @@ abbr -a -- mv 'mv -i'
 abbr -a -- cp 'cp -i'
 abbr -a -- rmdf 'rm -irf '
 
+# Fish specific
+abbr --add unset 'set --erase'
+
 function mkdir -d "Create a directory and set CWD"
     command mkdir $argv
     if test $status = 0
@@ -84,12 +87,12 @@ else if command -v colorls &>/dev/null
     abbr -a -- ll "colorls -1A --git-status"
     abbr -a -- ls "colorls -A"
     abbr -a -- ltt 'colorls -A | grep "(date +"%d %b")"'
-#  FIX: 2024-12-17 - Make this fish complait
-#else if [(command -v ls) =~ gnubin || $OSTYPE =~ linux] 
-#    abbr -a -- ls "ls --color=auto"
-#    abbr -a -- l "ls -l --color=auto"
-#    abbr -a -- ll 'ls -FlAhpv --color=auto'
-#    abbr -a -- ltt 'ls -FlAhpv| grep "(date +"%d %b")"'
+    #  FIX: 2024-12-17 - Make this fish complait
+    #else if [(command -v ls) =~ gnubin || $OSTYPE =~ linux]
+    #    abbr -a -- ls "ls --color=auto"
+    #    abbr -a -- l "ls -l --color=auto"
+    #    abbr -a -- ll 'ls -FlAhpv --color=auto'
+    #    abbr -a -- ltt 'ls -FlAhpv| grep "(date +"%d %b")"'
 else
     abbr -a -- ls "ls -G"
     abbr -a -- ll 'ls -FGlAhpv'
@@ -165,6 +168,5 @@ abbr -a -- zje 'zellij edit'
 abbr -a -- zjls 'zellij list-sessions'
 abbr -a -- zjk 'zellij kill-session'
 abbr -a -- zjka 'zellij kill-all-sessions'
-
 
 abbr -a -- bman batman
