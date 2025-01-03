@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 function get_default_branch
     git branch -l master main | sed -r 's/^[* ] //' | head -n 1
 end
@@ -60,10 +58,10 @@ abbr -a -- gdto 'git difftool'
 abbr -a -- gignore 'git update-index --assume-unchanged'
 abbr -a -- gf 'git fetch'
 abbr -a -- gfa 'git fetch --all --prune'
-abbr -a -- gfm 'git fetch origin (get_default_branch) --prune; and git merge FETCH_HEAD'
+abbr -a -- gfm 'git fetch origin ("$get_default_branch") --prune; and git merge FETCH_HEAD'
 abbr -a -- gfo 'git fetch origin'
 abbr -a -- gl 'git pull'
-abbr -a -- ggl 'git pull origin (get_current_branch)'
+abbr -a -- ggl 'git pull origin ("$get_default_branch")'
 abbr -a -- gll 'git pull origin'
 abbr -a -- glr 'git pull --rebase'
 abbr -a -- glg 'git log --stat'
@@ -91,7 +89,7 @@ function fzf_git_log
     end
 end
 
-abbr -a -- gloo 'fzf_git_log'
+abbr -a -- gloo '$fzf_git_log'
 
 function fzf_git_reflog
     set -l selection (
@@ -104,7 +102,7 @@ function fzf_git_reflog
     end
 end
 
-abbr -a -- grl 'fzf_git_reflog'
+abbr -a -- grl '$fzf_git_reflog'
 
 abbr -a -- gm 'git merge'
 abbr -a -- gmt 'git mergetool --no-prompt'
