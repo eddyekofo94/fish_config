@@ -1,4 +1,3 @@
-#!/usr/bin/env fish
 # -------------------------------------------------------------------
 # make some commands (potentially) less destructive
 # -------------------------------------------------------------------
@@ -27,11 +26,11 @@ function mkdir -d "Create a directory and set CWD"
 end
 
 function make_file_executable
-    chmod +x "$1" || exit;
+    chmod +x "$1" || exit
     ls -al
 end
 
-abbr -a -- chmox 'make_file_executable'
+abbr -a -- chmox make_file_executable
 
 ## super user alias
 abbr -a -- _ 'sudo '
@@ -66,9 +65,9 @@ if command -q eza --icons &>/dev/null
     abbr -a -- llm 'll --sort=modified' # system: List files by last modified date
     abbr -a -- la 'eza -lbhHigUmuSa --color-scale --git --icons auto' # system: List files with attributes
     abbr -a -- lx 'eza -lbhHigUmuSa@ --color-scale --git --icons auto' # system: List files with extended attributes
-    abbr -a -- lt 'eza --tree --level=2 --icons auto'                               # system: List files in a tree view
-    abbr -a -- llt 'eza -lahF --tree --level=2'                        # system: List files in a tree view with long format
-    abbr -a -- ltt 'eza -lahF --icons auto | grep "(date +"%d %b")"'               # system: List files modified today
+    abbr -a -- lt 'eza --tree --level=2 --icons auto' # system: List files in a tree view
+    abbr -a -- llt 'eza -lahF --tree --level=2' # system: List files in a tree view with long format
+    abbr -a -- ltt 'eza -lahF --icons auto | grep "(date +"%d %b")"' # system: List files modified today
     abbr -a -- tree 'eza --tree $eza_params'
 else if command -v eza &>/dev/null
     abbr -a -- ls 'eza --group-directories-first --icons'
@@ -110,13 +109,17 @@ abbr -a -- reload "source $ZDOTDIR/.zshenv && source $ZDOTDIR/.zprofile && sourc
 # abbr -a -- reload "(exec zsh)"
 
 function rm_cores
-    if [[  "$PWD" != "$HOME" ]]
-        if commands -q fd
-            echo "(which fd) is found"
-            fd -I "core.[0-9][0-9][0-9][0-9]"
-            rm (fd -I "core.[0-9][0-9][0-9][0-9]")
+    if test "$PWD" != "$HOME"
+        if command -q fd
+            set -l cores (fd -I "core.[0-9][0-9][0-9][0-9]" )
+
+            if test (count $cores) -gt 0
+
+                echo "core(s) found"
+                rm (fd -I "core.[0-9][0-9][0-9][0-9]")
+            end
         else
-            echo "using (which find)"
+            echo "using find"
             find . -name 'core.[0-9][0-9][0-9][0-9]'
             rm -i (find . -name 'core.[0-9][0-9][0-9][0-9]')
         end
@@ -125,7 +128,7 @@ function rm_cores
     end
 end
 
-abbr -a -- rmcore "rm_cores"
+abbr -a -- rmcore rm_cores
 
 abbr -a -- cl clear
 abbr -a -- lg lazygit
@@ -134,7 +137,7 @@ abbr -a -- vim nvim
 abbr -a -- grep "grep --color=auto"
 abbr -a -- nvmc "NVIM_APPNAME=nvim.macro nvim"
 abbr -a -- chad "NVIM_APPNAME=nvim.chad nvim"
-abbr -a -- bak "NVIM_APPNAME=nvim.bak nvim"
+abbr -a -- vimbak "NVIM_APPNAME=nvim.bak nvim"
 abbr -a -- vi vim
 abbr -a -- bgr batgrep
 abbr -a -- cg cargo
@@ -158,11 +161,7 @@ end
 abbr -a -- -g -- -h '-h 2>&1 | bat --language=help --style=plain'
 abbr -a -- -g -- --help '--help 2>&1 | bat --language=help --style=plain'
 
-# bang-bang fish plugin... installed by omf
-bind ! __history_previous_command
-bind '$' __history_previous_command_arguments
-
-abbr -a -- zj 'zellij'
+abbr -a -- zj zellij
 abbr -a -- zja 'zellij attach'
 abbr -a -- zje 'zellij edit'
 abbr -a -- zjls 'zellij list-sessions'

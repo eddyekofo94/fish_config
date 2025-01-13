@@ -9,10 +9,10 @@ function zd -d "z - cd into 'frecency' folder"
           --no-multi \
           --tiebreak=index \
           --query "$argv[1]" \
-          --preview-window='right:hidden:wrap' \
           --bind=ctrl-v:toggle-preview \
           --bind=ctrl-s:toggle-sort \
           --header='(view:ctrl-v) (sort:ctrl-s)' \
+          #--preview-window='right:hidden:wrap' \
           #--preview "$FZF_PREVIEW_CMD" \
       )
 
