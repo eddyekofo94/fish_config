@@ -16,6 +16,7 @@ function e -d "fzf - open file or change directory"
     --bind='ctrl-f:+refresh-preview' \
     --bind='ctrl-a:select-all' \
     --bind='ctrl-x:deselect-all' \
+    --bind='ctrl-r:reload(fd --follow --exclude .git --strip-cwd-prefix)' \
     --header '
         CTRL-D to display directories | CTRL-F to display files
         CTRL-A to select all | CTRL-x to deselect all

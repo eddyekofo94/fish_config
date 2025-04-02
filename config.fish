@@ -12,7 +12,6 @@
 # Set vars for dotfiles and special dirs.
 set -g ZDOTDIR $XDG_CONFIG_HOME/zsh
 set -gx DOTFILES $HOME/.dotfiles
-set -gx MY_PROJECTS $HOME/Projects
 
 # Set initial working directory.
 set -g IWD $PWD
@@ -98,19 +97,14 @@ set fish_greeting
 
 # Initialize starship.
 if type -q starship
-    set -gx STARSHIP_CONFIG $__fish_config_dir/themes/starship.toml
+    #set -gx STARSHIP_CONFIG $__fish_config_dir/themes/starship.toml
     if not test -r $__fish_cache_dir/starship_init.fish
         starship init fish --print-full-init >$__fish_cache_dir/starship_init.fish
     end
     source $__fish_cache_dir/starship_init.fish
-    enable_transience
+    #enable_transience
 end
 
-## Bat things
-if command -q bat
-    alias cat 'bat -pp'
-    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-end
 
 #
 # Theme
@@ -118,19 +112,42 @@ end
 
 fish_config theme choose $FISH_THEME
 
-#
-# Terminal
-#
+#  CLEAN_UP: 2024-12-29 - Remove when finished!
+#set fish_key_bindings fish_user_key_bindings
 
-# Set WezTerm title
-if test -n "$TERM_PROGRAM"
-    set_term_var TERM_CURRENT_SHELL "fish $FISH_VERSION"
-end
-
-#
 # Local
 #
 
-if test -r $DOTFILES.local/fish/config.fish
-    source $DOTFILES.local/fish/config.fish
+#if test -r $DOTFILES.local/fish/config.fish
+#    source $DOTFILES.local/fish/config.fish
+#end
+
+# Functions needed for !! and !$
+function __history_previous_command
+    switch (commandline -t)
+        case "!"
+            commandline -t $history[1]
+            commandline -f repaint
+        case "*"
+            commandline -i !
+    end
+end
+
+function __history_previous_command_arguments
+    switch (commandline -t)
+        case "!"
+            commandline -t ""
+            commandline -f history-token-search-backward
+        case "*"
+            commandline -i '$'
+    end
+end
+
+# The bindings for !! and !$
+if [ "$fish_key_bindings" = fish_vi_key_bindings ]
+    bind -Minsert ! __history_previous_command
+    bind -Minsert '$' __history_previous_command_arguments
+else
+    bind ! __history_previous_command
+    bind '$' __history_previous_command_arguments
 end

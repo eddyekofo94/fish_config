@@ -16,6 +16,6 @@ function fish_user_key_bindings
     bind -M insert -m default jj backward-char force-repaint
     bind -M insert -m default \cy accept-autosuggestion
 
-    bind -M insert -m default ! bind_bang
-    bind -M insert -m default '$' bind_dollar
+    #bind -M insert -m default \cf fzf_change_directory
+    bind -M insert -m default \cf e
 end

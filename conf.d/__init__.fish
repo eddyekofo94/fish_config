@@ -47,6 +47,22 @@ if not test -s $__fish_cache_dir/brew_init.fish
     source $__fish_cache_dir/brew_init.fish
 end
 
+set -q LAZYGIT_DIR; or set -Ux LAZYGIT_DIR "$HOME/.config/lazygit"
+if test -d "$LAZYGIT_DIR"
+    if not test -f ~/.config/lazygit/config.yml
+        echo "setting up personal lazygit..."
+        ln -s ~/.dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
+    end
+end
+
+if not test -f $XDG_CONFIG_HOME/starship.toml
+    ln -s ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
+end
+
+if not test -d $XDG_CONFIG_HOME/zellij
+    ln -s ~/.dotfiles/zellij ~/.config/zellij
+end
+
 # Fisher
 init_fisher
 

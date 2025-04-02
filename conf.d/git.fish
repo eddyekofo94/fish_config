@@ -1,10 +1,12 @@
-function get_default_branch
-    git branch -l master main | sed -r 's/^[* ] //' | head -n 1
+function _fzf_git_status_git
+    git -c color.status=always status --short | fzf --ansi \
+        --preview 'git diff --color=always -- {-1} | sed 1,4d; test ! -d {-1} && bat --color=always {-1} | head -500' \
+        --bind='ctrl-o:execute(${EDITOR:-vim} {+})'
 end
 
-function get_current_branch
-    git branch --show-current
-end
+set -gx get_default_branch (git branch -l master main | sed -r 's/^[* ] //' | head -n 1 )
+
+set -gx get_current_branch (git branch --show-current )
 
 abbr -a -- ga 'git add'
 abbr -a -- gaa 'git add --all'
@@ -16,7 +18,7 @@ abbr -a -- gba 'git branch -a -v'
 abbr -a -- gban 'git branch -a -v --no-merged'
 abbr -a -- gbd 'git branch -d'
 abbr -a -- gbD 'git branch -D'
-abbr -a -- ggsup 'git branch --set-upstream-to=origin/(get_current_branch)'
+abbr -a -- ggsup 'git branch --set-upstream-to=origin/$get_current_branch'
 abbr -a -- gbl 'git blame -b -w'
 abbr -a -- gbs 'git bisect'
 abbr -a -- gbsb 'git bisect bad'
@@ -58,10 +60,10 @@ abbr -a -- gdto 'git difftool'
 abbr -a -- gignore 'git update-index --assume-unchanged'
 abbr -a -- gf 'git fetch'
 abbr -a -- gfa 'git fetch --all --prune'
-abbr -a -- gfm 'git fetch origin ("$get_default_branch") --prune; and git merge FETCH_HEAD'
+abbr -a -- gfm 'git fetch origin "$get_default_branch" --prune; and git merge FETCH_HEAD'
 abbr -a -- gfo 'git fetch origin'
 abbr -a -- gl 'git pull'
-abbr -a -- ggl 'git pull origin ("$get_default_branch")'
+abbr -a -- ggl 'git pull origin "$get_default_branch"'
 abbr -a -- gll 'git pull origin'
 abbr -a -- glr 'git pull --rebase'
 abbr -a -- glg 'git log --stat'
@@ -71,7 +73,7 @@ abbr -a -- glo 'git log --oneline --decorate --color'
 #abbr -a -- glog 'git log --oneline --decorate --color --graph'
 abbr -a -- glog 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
 abbr -a -- gloga 'git log --oneline --decorate --color --graph --all'
-abbr -a -- glom 'git log --oneline --decorate --color (get_default_branch)..'
+abbr -a -- glom 'git log --oneline --decorate --color $get_default_branch..'
 abbr -a -- glod 'git log --oneline --decorate --color dev..'
 
 git config --global alias.ll 'log --graph --format="%C(yellow)%h%C(red)%d%C(reset) - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
@@ -109,8 +111,9 @@ abbr -a -- gmt 'git mergetool --no-prompt'
 abbr -a -- gmom 'git merge origin/($get_default_branch)'
 
 function gp -d "push to remote branch, but check if it's default branch"
-    if test $get_default_branch -eq $get_current_branch
-        echo "Error: you cannot push on the ($get_default_branch) branch"
+    if [ $get_default_branch = $get_current_branch ]
+        echo "Error: you cannot push on the $get_default_branch branch"
+        return
     else
         git push
     end
@@ -122,11 +125,11 @@ abbr -a -- gpo 'git push origin'
 abbr -a -- gpo! 'git push --force-with-lease origin'
 abbr -a -- gpv 'git push --no-verify'
 abbr -a -- gpv! 'git push --no-verify --force-with-lease'
-abbr -a -- ggp 'git push origin (get_current_branch)'
-abbr -a -- ggp! 'git push origin (get_current_branch) --force-with-lease'
-abbr -a -- gpu 'git push origin (get_current_branch) --set-upstream'
+abbr -a -- ggp 'git push origin $get_current_branch'
+abbr -a -- ggp! 'git push origin $get_current_branch --force-with-lease'
+abbr -a -- gpu 'git push origin $get_current_branch --set-upstream'
 abbr -a -- gpoat 'git push origin --all; and git push origin --tags'
-abbr -a -- ggpnp 'git pull origin (get_current_branch); and git push origin $(get_current_branch)'
+abbr -a -- ggpnp 'git pull origin $get_current_branch; and git push origin $(get_current_branch)'
 abbr -a -- gr 'git remote -vv'
 abbr -a -- gra 'git remote add'
 abbr -a -- grb 'git rebase'
@@ -162,7 +165,7 @@ abbr -a -- grv 'git remote -v'
 abbr -a -- gsh 'git show'
 abbr -a -- gsd 'git svn dcommit'
 abbr -a -- gsr 'git svn rebase'
-abbr -a -- gss 'git status -s' #NOTE: using fzf: fdiff
+#abbr -a -- gss 'git status -s' #NOTE: using fzf: fdiff
 abbr -a -- gst 'git status'
 abbr -a -- gsta 'git stash'
 abbr -a -- gstd 'git stash drop'
@@ -210,5 +213,5 @@ abbr -a -- gwtmv 'git worktree move'
 abbr -a -- gwtpr 'git worktree prune'
 abbr -a -- gwtrm 'git worktree remove'
 abbr -a -- gwtulo 'git worktree unlock'
-abbr -a -- gmr 'git push origin ($get_current_branch) --set-upstream -o merge_request.create'
-abbr -a -- gmwps 'git push origin ($get_current_branch) --set-upstream -o merge_request.create -o merge_request.merge_when_pipeline_succeeds'
+abbr -a -- gmr 'git push origin $get_current_branch --set-upstream -o merge_request.create'
+abbr -a -- gmwps 'git push origin $get_current_branch --set-upstream -o merge_request.create -o merge_request.merge_when_pipeline_succeeds'

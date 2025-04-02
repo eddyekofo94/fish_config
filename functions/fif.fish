@@ -1,4 +1,4 @@
-function fif
+function fif -d "find entry in files"
     # Switch between Ripgrep mode and fzf filtering mode (CTRL-T)
     rm -f /tmp/rg-fzf-{r,f}
     set -x RG_PREFIX "rg --column --line-number --no-heading --color=always --smart-case "
