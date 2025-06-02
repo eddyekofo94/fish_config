@@ -4,9 +4,12 @@ function _fzf_git_status_git
         --bind='ctrl-o:execute(${EDITOR:-vim} {+})'
 end
 
-set -gx get_default_branch (git branch -l master main | sed -r 's/^[* ] //' | head -n 1 )
+if git_is_repo
 
-set -gx get_current_branch (git branch --show-current )
+    set -gx get_default_branch (git branch -l master main | sed -r 's/^[* ] //' | head -n 1 )
+
+    set -gx get_current_branch (git branch --show-current )
+end
 
 abbr -a -- ga 'git add'
 abbr -a -- gaa 'git add --all'

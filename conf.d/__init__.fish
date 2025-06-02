@@ -12,6 +12,9 @@ for xdgdir in (path filter -vd $XDG_CONFIG_HOME $XDG_DATA_HOME $XDG_STATE_HOME $
     mkdir -p $xdgdir
 end
 
+# set fish config variable
+set -q FISH_CONFIG; or set -Ux FISH_CONFIG $XDG_CONFIG_HOME/fish
+
 # Ensure manpath is set to something so we can add to it.
 set -q MANPATH || set -gx MANPATH ''
 
@@ -62,6 +65,8 @@ end
 if not test -d $XDG_CONFIG_HOME/zellij
     ln -s ~/.dotfiles/zellij ~/.config/zellij
 end
+
+source $FISH_CONFIG/conf.d/_fzf_envs.fish
 
 # Fisher
 init_fisher

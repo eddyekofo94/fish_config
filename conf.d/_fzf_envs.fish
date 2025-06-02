@@ -45,7 +45,7 @@ end
 # fi
 
 
-set -Ux FZF_COMMON_OPTIONS "--inline-info \
+set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info \
     --height 96% --border --margin=1 --padding=1 \
     --select-1 \
     --ansi \
@@ -63,7 +63,7 @@ set -Ux FZF_COMMON_OPTIONS "--inline-info \
     --bind=esc:abort \
     --bind=ctrl-c:abort \
     --bind=?:toggle-preview \
-    --preview='($FZF_PREVIEW_COMMAND) 2> /dev/null' \
+    --preview='$FZF_PREVIEW_COMMAND' \
     --cycle \
     --margin=0,0 \
     --padding=0,0 \
@@ -71,13 +71,11 @@ set -Ux FZF_COMMON_OPTIONS "--inline-info \
 
 command -v bat >/dev/null && command -v eza >/dev/null && set -Ux FZF_DEFAULT_OPTS "$FZF_COMMON_OPTIONS"
 
-# --preview \". $ZSH_DOT_DIR_HELPERS/functions/fuzzy_preview {}\" \
-
-set -Ux FZF_PREVIEW_COMMAND '_fzf_preview_command {}'
+set -q FZF_PREVIEW_COMMAND; or set -Ux FZF_PREVIEW_COMMAND '_fzf_preview_command {}'
 
 set -Ux FZF_CTRL_T_OPTS "--min-height 30 \
---height 85% \
---preview-window noborder --preview '_fzf_preview_command {}'"
+    --height 85% \
+    --preview-window noborder --preview '_fzf_preview_command {}'"
 
 # alts: 󰛄
 # --bind=ctrl-f:page-down,ctrl-b:page-up
@@ -88,12 +86,12 @@ set -Ux FZF_CTRL_T_OPTS "--min-height 30 \
 # --height=22%
 
 # Catpuccin FZF colours
-set -Ux FZF_DEFAULT_OPTS "\
+set -Ux FZF_CATPPUCCIM_THEME "\
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
-function _fzf_catppuccin
+function _fzf_catppuccin_theme
     set -Ux FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
     --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
     --color=border:#45475a \
@@ -148,5 +146,7 @@ function _fzf_comprun
             fzf "$argv"
     end
 end
+
+_fzf_catppuccin_theme
 
 set -Ux FZF_PREVIEW_LINES -200

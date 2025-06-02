@@ -105,7 +105,6 @@ if type -q starship
     #enable_transience
 end
 
-
 #
 # Theme
 #

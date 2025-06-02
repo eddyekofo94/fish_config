@@ -11,8 +11,8 @@ function ufenv -d "fzf the unset environment variables"
 
         for env in $envs
             set -l var (echo "$env" | cut -d= -f1)
-            echo "set --erase $var"
-            set --erase $var
+            echo "set --erase -g $var"
+            set --erase -g $var
         end
     end
 end
