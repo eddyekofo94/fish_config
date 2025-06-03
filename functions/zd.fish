@@ -1,4 +1,4 @@
-function zd -d "z - cd into 'frecency' folder"
+function zd -d "z - cd into 'frecency' directory"
     set IFS '\n'
 
     set -l dir (
