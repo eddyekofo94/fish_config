@@ -11,6 +11,7 @@ function zd -d "z - cd into 'frecency' directory"
           --query "$argv[1]" \
           --bind=ctrl-v:toggle-preview \
           --bind=ctrl-s:toggle-sort \
+          --bind 'ctrl-o:become($EDITOR {1} +{2})' \
           --header='(view:ctrl-v) (sort:ctrl-s)' \
           #--preview-window='right:hidden:wrap' \
           #--preview "$FZF_PREVIEW_CMD" \
