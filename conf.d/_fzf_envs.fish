@@ -45,9 +45,12 @@ end
 # fi
 
 
-set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info \
-    --height 96% --border --margin=1 --padding=1 \
+set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info=right \
+    --height 96% \
+    --preview-window=right,55%,border-sharp,nocycle \
     --select-1 \
+    --border=none \
+    --no-separator \
     --ansi \
     --multi \
     --reverse \
@@ -65,7 +68,7 @@ set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info \
     --bind=?:toggle-preview \
     --preview='$FZF_PREVIEW_COMMAND' \
     --cycle \
-    --margin=0,0 \
+    --margin=1,0,0 \
     --padding=0,0 \
     --prompt='∷ '"
 
