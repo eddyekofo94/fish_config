@@ -1,4 +1,4 @@
-function gss
+function gss -d "git status"
     # The command used to populate the list and refresh it
     # set -l list_cmd "git -c color.status=always status --porcelain"
     set -l git_root_dir (git rev-parse --show-toplevel)
