@@ -55,7 +55,7 @@ set -q FZF_COMMON_OPTIONS; or set -Ux FZF_COMMON_OPTIONS "--inline-info=right \
     --multi \
     --reverse \
     --extended \
-    --bind=ctrl-space:toggle \
+    --bind=tab:toggle \
     --bind=ctrl-a:select-all \
     --bind=ctrl-d:deselect-all \
     --bind=ctrl-t:toggle-all \

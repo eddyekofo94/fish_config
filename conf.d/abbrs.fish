@@ -18,7 +18,7 @@ abbr -a -- l 'ls -UF'
 # better ls
 abbr -a -- la 'ls -lah'
 abbr -a -- ldot 'ls -ld .*'
-abbr -a -- ll 'ls -lGFh'
+# abbr -a -- ll 'ls -lGFh'
 abbr -a -- lsa 'ls -aGF'
 
 # quick nav

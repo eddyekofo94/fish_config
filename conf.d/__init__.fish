@@ -67,6 +67,7 @@ if not test -d $XDG_CONFIG_HOME/zellij
 end
 
 source $FISH_CONFIG/conf.d/_fzf_envs.fish
+# source $FISH_CONFIG/user_variables.fish
 
 # Fisher
 init_fisher

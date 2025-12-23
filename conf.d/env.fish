@@ -46,11 +46,14 @@ set -q SQLITE_HISTORY; or set -Ux SQLITE_HISTORY $XDG_DATA_HOME/sqlite_history
 set -q WORKON_HOME; or set -Ux WORKON_HOME $XDG_DATA_HOME/venvs
 set -q PYLINTHOME; or set -Ux PYLINTHOME $XDG_CACHE_HOME/pylint
 
-# Other vars
-set -q FISH_THEME; or set -Ux FISH_THEME catppuccin_mocha
-
 # Applications vars
 set -q JAVA_HOME; or set -Ux JAVA_HOME "$SDKMAN_DIR/candidates/java/current"
+
+# cargo/rust path
+source "$HOME/.cargo/env.fish"
+
+# Other vars
+set -q FISH_THEME; or set -Ux FISH_THEME catppuccin_mocha
 
 # LS colors using Vivid installed using Cargo
 set -q LS_COLORS; or set -Ux LS_COLORS "(vivid generate $HOME/.dotfiles/vivid/catppuccin-mocha.yml)"

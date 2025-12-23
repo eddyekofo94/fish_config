@@ -18,6 +18,7 @@ function _fzf_search_git_status --description "Search the output of git status. 
                 --nth="2.." \
                 $fzf_git_status_opts
         )
+
         if test $status -eq 0
             # git status --short automatically escapes the paths of most files for us so not going to bother trying to handle
             # the few edges cases of weird file names that should be extremely rare (e.g. "this;needs;escaping")
