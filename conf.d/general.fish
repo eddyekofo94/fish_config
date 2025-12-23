@@ -57,7 +57,7 @@ abbr -a -- lh 'ls -a | egrep "^\."'
 
 if command -q eza --icons &>/dev/null
     # abbr -a -- ls 'eza --git --icons auto --sort=modified' # system: List filenames on one line
-    abbr -a -- ls 'eza --git --group-directories-first --icons --sort=modified'
+    # abbr -a -- ls 'eza --git --group-directories-first --icons --sort=modified'
     abbr -a -- l "eza --git --all --group-directories-first --no-filesize --no-user --long --icons --header --binary --group --sort=modified"
     # abbr -a -- ll 'eza --git --group-directories-first --icons --sort=modified --long --all --no-filesize --no-time --no-user --no-permissions'
     abbr -a -- lll "eza -1F --git --icons auto" # system: List files with one line per file
@@ -69,10 +69,10 @@ if command -q eza --icons &>/dev/null
     abbr -a -- ltt 'eza -lahF --icons auto | grep "(date +"%d %b")"' # system: List files modified today
     abbr -a -- tree 'eza --tree --icons auto $eza_params'
 else if command -v eza &>/dev/null
-    abbr -a -- ls 'eza --group-directories-first --icons'
-    abbr -a -- ls 'eza --git --icons auto'
+    # abbr -a -- ls 'eza --group-directories-first --icons'
+    # abbr -a -- ls 'eza --git --icons auto'
     abbr -a -- l 'eza --git -lF --icons auto'
-    abbr -a -- ll 'eza -lahF --git --icons auto'
+    # abbr -a -- ll 'eza -lahF --git --icons auto'
     abbr -a -- lll "eza -1F --git --icons auto"
     abbr -a -- llm 'll --sort=modified --icons auto'
     abbr -a -- la 'eza -lbhHigUmuSa --color-scale --git'
@@ -81,18 +81,8 @@ else if command -v eza &>/dev/null
     abbr -a -- llt 'eza -lahF --tree --level=2'
     abbr -a -- ltt 'eza -lahF | grep "(date +"%d %b")"'
     abbr -a -- tree 'eza --tree $eza_params'
-else if command -v colorls &>/dev/null
-    abbr -a -- ll "colorls -1A --git-status"
-    abbr -a -- ls "colorls -A"
-    abbr -a -- ltt 'colorls -A | grep "(date +"%d %b")"'
-    #  FIX: 2024-12-17 - Make this fish complait
-    #else if [(command -v ls) =~ gnubin || $OSTYPE =~ linux]
-    #    abbr -a -- ls "ls --color=auto"
-    #    abbr -a -- l "ls -l --color=auto"
-    #    abbr -a -- ll 'ls -FlAhpv --color=auto'
-    #    abbr -a -- ltt 'ls -FlAhpv| grep "(date +"%d %b")"'
 else
-    abbr -a -- ls "ls -G"
+    # abbr -a -- ls "ls -G"
     abbr -a -- ll 'ls -FGlAhpv'
     abbr -a -- ltt 'ls -FlAhpv| grep "(date +"%d %b")"'
 end

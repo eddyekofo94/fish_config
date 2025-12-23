@@ -10,8 +10,6 @@ set -xg XDG_SCRIPT_HOME $HOME/.local/script
 set -xg CONAN_USER_HOME $XDG_CONFIG_HOME
 set -xg GOPATH $XDG_DATA_HOME/go
 set -xg GOMODCACHE $XDG_CACHE_HOME/go/mod
-set -xg RUSTUP_HOME $XDG_DATA_HOME/rustup
-set -xg CARGO_HOME $XDG_DATA_HOME/cargo
 set -xg DOCKER_CONFIG $XDG_CONFIG_HOME/docker
 set -xg SQLITE_HISTORY $XDG_DATA_HOME/sqlite_history
 set -xg GRADLE_USER_HOME $XDG_DATA_HOME/gradle
@@ -31,7 +29,6 @@ set -xg ZSH $XDG_DATA_HOME/.dotfiles/zsh
 fish_add_path $XDG_BIN_HOME
 fish_add_path $XDG_BIN_HOME/color-scripts/
 fish_add_path $GOPATH/bin
-fish_add_path $CARGO_HOME/bin
 fish_add_path $XDG_SCRIPT_HOME
 fish_add_path /usr/local/bin
 fish_add_path /usr/local/sbin
@@ -39,7 +36,6 @@ fish_add_path /usr/bin
 fish_add_path /usr/sbin
 fish_add_path /bin
 fish_add_path /sbin
-fish_add_path /usr/lib/rustup/bin
 fish_add_path /usr/lib/go/bin
 fish_add_path $HOME/.dotnet/tools
 fish_add_path $XDG_DATA_HOME/bob/nvim-bin
