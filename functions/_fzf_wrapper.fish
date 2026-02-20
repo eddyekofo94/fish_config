@@ -19,11 +19,13 @@ function _fzf_wrapper --description "Prepares some environment variables before 
         set --export FZF_DEFAULT_OPTS "--inline-info \
             --height 90% --border --margin=1 --padding=1 \
             --select-1 \
+            --preview-window=right,55%,border-sharp,nocycle \
             --ansi \
             --multi \
             --reverse \
             --extended \
-            --bind=ctrl-space:toggle \
+            --bind=tab:toggle \
+            --bind 'enter:execute-silent(echo {} | fish -c ...)' \
             --bind=ctrl-a:select-all \
             --bind=ctrl-d:deselect-all \
             --bind=ctrl-t:toggle-all \

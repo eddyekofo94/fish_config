@@ -2,7 +2,11 @@
 
 set -q TERM; or set -Ux TERM xterm-256color
 
-set -q DOTFILES_DIR; or set -Ux DOTFILES_DIR "$HOME/.dotfiles"
+set -q DOT_DIR; or set -Ux DOT_DIR "$HOME/.dotfiles"
+
+set -q NVIM_NF; or set -Ux NVIM_NF true
+
+
 
 # Set editor variables.
 set -q PAGER; or set -Ux PAGER less
@@ -53,7 +57,7 @@ set -q JAVA_HOME; or set -Ux JAVA_HOME "$SDKMAN_DIR/candidates/java/current"
 source "$HOME/.cargo/env.fish"
 
 # Other vars
-set -q FISH_THEME; or set -Ux FISH_THEME catppuccin_mocha
+set -q FISH_THEME; or set -Ux FISH_THEME catppuccin-mocha
 
 # LS colors using Vivid installed using Cargo
 set -q LS_COLORS; or set -Ux LS_COLORS "(vivid generate $HOME/.dotfiles/vivid/catppuccin-mocha.yml)"

@@ -89,17 +89,10 @@ set -Ux FZF_CTRL_T_OPTS "--min-height 30 \
 # --height=22%
 
 # Catpuccin FZF colours
-set -Ux FZF_CATPPUCCIM_THEME "\
-    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+set -Ux FZF_CATPPUCCIM_THEME "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 function _fzf_catppuccin_theme
-    set -Ux FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS \
-    --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
-    --color=border:#45475a \
-    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+    set -Ux FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 --color=border:#45475a --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 end
 
 # CTRL-/ to toggle small preview window to see the full command
